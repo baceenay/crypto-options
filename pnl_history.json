@@ -1,23 +1,5 @@
 [
   {
-    "ts": "2026-06-14 13:28:55 UTC",
-    "spot": 64283.3,
-    "tte_days": 18.7716,
-    "delta_pct": 5.837,
-    "net_delta_pct": 3.134,
-    "gamma_pts": 1.5557,
-    "iv_pct": 50.08,
-    "dvol": 40.76,
-    "hv_5d": 20.21,
-    "hv_10d": 33.07,
-    "hv_30d": 40.45,
-    "pnl_option": 1392.77,
-    "pnl_hedge": -1502.87,
-    "pnl_total": -100.89,
-    "theta_daily": 163.71,
-    "n_positions": 11
-  },
-  {
     "ts": "2026-06-14 14:02:49 UTC",
     "spot": 64250.7,
     "tte_days": 18.748,
@@ -8997,6 +8979,24 @@
     "pnl_hedge": -2283.14,
     "pnl_total": -1696.95,
     "theta_daily": 79.47,
+    "n_positions": 11
+  },
+  {
+    "ts": "2026-07-29 01:43:03 UTC",
+    "spot": 63756.5,
+    "tte_days": 16.2618,
+    "delta_pct": 3.198,
+    "net_delta_pct": -2.31,
+    "gamma_pts": 1.429,
+    "iv_pct": 47.87,
+    "dvol": 37.34,
+    "hv_5d": 33.68,
+    "hv_10d": 30.61,
+    "hv_30d": 28.98,
+    "pnl_option": 536.35,
+    "pnl_hedge": -2274.24,
+    "pnl_total": -1695.87,
+    "theta_daily": 81.07,
     "n_positions": 11
   }
 ]
