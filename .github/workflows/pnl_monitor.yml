@@ -103,6 +103,9 @@ jobs:
       - name: Snapshot surface de vol réelle (collecte forward, 1/jour)
         run: python vol_surface_logger.py || echo "vol_surface_logger non bloquant"
 
+      - name: Top-up historique funding BTC-PERPETUAL
+        run: python funding_logger.py || echo "funding_logger non bloquant"
+
       - name: Re-fit du modèle de skew sur données réelles (no-op tant que < 15j)
         run: python fit_vol_model.py || echo "fit_vol_model non bloquant"
 
@@ -173,7 +176,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in pnl_summary.json positions.json pnl_history.json positions_detail.json scan_entry.json reconcile.json docs/index.html orderbook_log.jsonl vol_surface.jsonl vol_model_fit.json; do
+          for f in pnl_summary.json positions.json pnl_history.json positions_detail.json scan_entry.json reconcile.json docs/index.html orderbook_log.jsonl vol_surface.jsonl vol_model_fit.json funding_history.jsonl; do
             if [ -e "$f" ]; then git add "$f"; fi
           done
           git diff --cached --quiet || git commit -m "chore: pnl snapshot $(date -u '+%Y-%m-%d %H:%M UTC')"

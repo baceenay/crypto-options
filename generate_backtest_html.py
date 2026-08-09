@@ -116,6 +116,18 @@ def generate():
     sweeps_html = "".join(_sweep_table(s) for s in d["sweeps"])
     cov = (d.get("skew_fit") or {}).get("coverage") or {}
     cov_txt = f"{cov.get('days','?')}j ({cov.get('start','?')}→{cov.get('end','?')})" if cov else "skew linéaire (pas encore de surface réelle)"
+    # Statut du fit : régime-aware (a1/b1 actifs) ou statique (pas assez d'amplitude DVOL vue)
+    _bks = (d.get("skew_fit") or {}).get("buckets") or []
+    _n_reg = sum(1 for bk in _bks if bk.get("regime_aware"))
+    if not _bks:
+        fit_status = "⚠ provisoire — pas encore de surface réelle"
+    elif _n_reg == len(_bks):
+        fit_status = "✓ fit régime-aware (calme + stress couverts)"
+    else:
+        _spread = _bks[0].get("dvol_spread", "?")
+        fit_status = (f"⚠ fit statique — range DVOL observé {_spread}pts &lt; 15pts requis : "
+                      f"la dépendance au régime (a1/b1) attend un épisode de stress ; "
+                      f"magnitudes du backtest optimistes en période stressée")
 
     html = f"""<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -147,7 +159,7 @@ th,td{{text-align:right;padding:4px 6px;border-bottom:1px solid #21262d}} th:fir
 </style></head><body>
 <a class="back" href="index.html">← Dashboard live</a>
 <h1>📊 Backtests &amp; Surface de Skew</h1>
-<p class="muted">Généré {d['generated_at']} · surface réelle : {cov_txt} · ⚠ provisoire tant que peu de jours collectés</p>
+<p class="muted">Généré {d['generated_at']} · surface réelle : {cov_txt} · {fit_status}</p>
 
 <div class="kpi">
   <div>PnL baseline<br><b class="pos">{b['pnl']:,}$</b></div>
