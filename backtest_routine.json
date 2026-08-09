@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-09 21:28:26 UTC",
+  "generated_at": "2026-08-09 21:32:50 UTC",
   "years": 4.0,
   "skew_fit": {
     "form": "iv_ratio = 1 + a(DVOL)*OTM% + b(DVOL)*OTM%^2, par bucket de maturité",
@@ -64,7 +64,7 @@
       "days": 57
     },
     "n_snapshots": 57,
-    "fitted_at": "2026-08-09 21:27:39 UTC"
+    "fitted_at": "2026-08-09 21:32:04 UTC"
   },
   "prod_config": {
     "W_IVHV": 0.3,
@@ -91,7 +91,8 @@
     "CB_T1R": 3.0,
     "REENTRY_BOOST": 0.05,
     "T1_COOLDOWN": 0,
-    "GAMMA_ECAP": 0.0
+    "GAMMA_ECAP": 0.0,
+    "DVOLMIN": 35.0
   },
   "baseline": {
     "pnl": 88668,
@@ -3994,6 +3995,165 @@
   },
   "sweeps": [
     {
+      "param": "Porte DVOL min (entrées)",
+      "results": [
+        {
+          "pnl": 89356,
+          "maxdd": 3525,
+          "calmar": 9.54,
+          "sharpe": 9.2,
+          "worst": -1309,
+          "folds": [
+            53.05,
+            36.83,
+            44.51,
+            7.28,
+            3.97
+          ],
+          "worst_fold": 3.97,
+          "mean_fold": 29.13,
+          "trades": 796,
+          "label": "25",
+          "is_current": false,
+          "is_best": false
+        },
+        {
+          "pnl": 89356,
+          "maxdd": 3525,
+          "calmar": 9.54,
+          "sharpe": 9.2,
+          "worst": -1309,
+          "folds": [
+            53.05,
+            36.83,
+            44.51,
+            7.28,
+            3.97
+          ],
+          "worst_fold": 3.97,
+          "mean_fold": 29.13,
+          "trades": 796,
+          "label": "28",
+          "is_current": false,
+          "is_best": false
+        },
+        {
+          "pnl": 89356,
+          "maxdd": 3525,
+          "calmar": 9.54,
+          "sharpe": 9.2,
+          "worst": -1309,
+          "folds": [
+            53.05,
+            36.83,
+            44.51,
+            7.28,
+            3.97
+          ],
+          "worst_fold": 3.97,
+          "mean_fold": 29.13,
+          "trades": 796,
+          "label": "30",
+          "is_current": false,
+          "is_best": false
+        },
+        {
+          "pnl": 89356,
+          "maxdd": 3525,
+          "calmar": 9.54,
+          "sharpe": 9.2,
+          "worst": -1309,
+          "folds": [
+            53.05,
+            36.83,
+            44.51,
+            7.28,
+            3.97
+          ],
+          "worst_fold": 3.97,
+          "mean_fold": 29.13,
+          "trades": 796,
+          "label": "32",
+          "is_current": false,
+          "is_best": false
+        },
+        {
+          "pnl": 88668,
+          "maxdd": 4459,
+          "calmar": 7.48,
+          "sharpe": 7.77,
+          "worst": -4306,
+          "folds": [
+            53.05,
+            36.83,
+            44.51,
+            5.49,
+            3.98
+          ],
+          "worst_fold": 3.98,
+          "mean_fold": 28.77,
+          "trades": 783,
+          "label": "35",
+          "is_current": true,
+          "is_best": false
+        },
+        {
+          "pnl": 86307,
+          "maxdd": 3870,
+          "calmar": 8.39,
+          "sharpe": 8.24,
+          "worst": -3661,
+          "folds": [
+            53.05,
+            36.83,
+            43.68,
+            4.8,
+            8.52
+          ],
+          "worst_fold": 4.8,
+          "mean_fold": 29.38,
+          "trades": 710,
+          "label": "38",
+          "is_current": false,
+          "is_best": false
+        },
+        {
+          "pnl": 86074,
+          "maxdd": 1316,
+          "calmar": 24.61,
+          "sharpe": 10.23,
+          "worst": -1163,
+          "folds": [
+            53.05,
+            36.83,
+            39.78,
+            29.58,
+            18.98
+          ],
+          "worst_fold": 18.98,
+          "mean_fold": 35.64,
+          "trades": 634,
+          "label": "40",
+          "is_current": false,
+          "is_best": true
+        }
+      ],
+      "sensitivity": 17.13,
+      "extend": false,
+      "gain_vs_current": 6.87,
+      "current_is_best": false,
+      "recommend_change": false,
+      "opt_label": "40",
+      "best_label": "35",
+      "best_calmar": 24.61,
+      "best_worst_fold": 18.98,
+      "best_mean_fold": 35.64,
+      "fold_wins": 2,
+      "n_folds": 5,
+      "plateau": true,
+      "robust": false
+    },
+    {
       "param": "SKEW_NORM",
       "results": [
         {
@@ -4037,7 +4197,7 @@
           "is_best": true
         },
         {
-          "pnl": 92142,
+          "pnl": 92141,
           "maxdd": 8678,
           "calmar": 4.0,
           "sharpe": 5.36,
@@ -5229,7 +5389,7 @@
       "param": "Yield — normalisation",
       "results": [
         {
-          "pnl": 81857,
+          "pnl": 81856,
           "maxdd": 3545,
           "calmar": 8.69,
           "sharpe": 7.2,
