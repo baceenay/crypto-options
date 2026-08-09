@@ -30,6 +30,7 @@ PROD = dict(
     CB_T2M=10.0, CB_T2D=12.0, CB_T1M1=5.0, CB_T1M3=6.0, CB_T1K=0.30, CB_T1R=3.0,
     REENTRY_BOOST=0.05,
     T1_COOLDOWN=0, GAMMA_ECAP=0.0,
+    DVOLMIN=35.0,
 )
 
 
@@ -45,6 +46,7 @@ def _apply(c):
     bt.CB_T1_KEEP, bt.CB_T1_RESTORE = c['CB_T1K'], c['CB_T1R']
     bt.ENTRY_SCORE_REENTRY_BOOST = c['REENTRY_BOOST']
     bt.CB_T1_COOLDOWN_D, bt.GAMMA_ENTRY_CAP = c['T1_COOLDOWN'], c['GAMMA_ECAP']
+    bt.DVOL_MIN = c['DVOLMIN']
 
 
 def _stats(ec):
@@ -217,6 +219,7 @@ def run(years=4.0):
         sweep("Re-entrée boost", 'REENTRY_BOOST', [0.0,0.03,0.05,0.08,0.10,0.15], lambda v:f"+{v:.2f}"),
         sweep("CB T1 — cooldown post-reprise (j)", 'T1_COOLDOWN', [0,1,2,3,5], lambda v:"OFF" if v==0 else f"{int(v)}j"),
         sweep("Gamma — cap dur entrée (pts)", 'GAMMA_ECAP', [0.0,7.0,8.0,8.5,9.0,9.5], lambda v:"OFF" if v==0 else f"{v:.1f}"),
+        sweep("Porte DVOL min (entrées)", 'DVOLMIN', [25.0,28.0,30.0,32.0,35.0,38.0,40.0], lambda v:f"{v:.0f}"),
     ]
 
     ranked = sorted(sweeps, key=lambda s: -s['sensitivity'])
