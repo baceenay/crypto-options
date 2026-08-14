@@ -1,44 +1,6 @@
 {
   "positions": [
     {
-      "instrument_name": "BTC-14AUG26-55000-P",
-      "strike": 55000.0,
-      "expiry_dt": "2026-08-14 08:00:00+00:00",
-      "tte_at_entry": 18.99,
-      "delta_at_entry": -0.0633,
-      "gamma_at_entry": 2e-05,
-      "vega_at_entry": 18.25837,
-      "theta_at_entry": -22.64466,
-      "iv_at_entry": 46.45,
-      "entry_price": 0.0029,
-      "entry_mark_price": 0.0031,
-      "entry_price_usd": 186.49,
-      "entry_spot": 64306.59,
-      "contracts": 0.2,
-      "entry_ts": "2026-07-26 08:08:44 UTC",
-      "hedge_qty": -0.01266,
-      "hedge_entry_spot": 64306.59,
-      "hedge_avg_entry": 64313.08,
-      "hedge_rebalances": 1,
-      "hedge_history": [
-        {
-          "ts": "2026-07-26 08:08:44 UTC",
-          "side": "SELL",
-          "qty": -0.01266,
-          "spot": 64306.59,
-          "perp_price": 64313.08,
-          "qty_before": 0.0,
-          "qty_after": -0.01266,
-          "vwap_before": 0.0,
-          "vwap_after": 64313.08,
-          "drift": 0.0633,
-          "note": "hedge initial (perp mark $64313.08 vs index $64306.59)"
-        }
-      ],
-      "entry_score": 0.464,
-      "entry_sizing_btc": 0.2
-    },
-    {
       "instrument_name": "BTC-28AUG26-50000-P",
       "strike": 50000.0,
       "expiry_dt": "2026-08-28 08:00:00+00:00",
@@ -5380,6 +5342,51 @@
       "exit_reason": "expiration",
       "pnl_btc": 0.0007,
       "pnl_usd": 45.0
+    },
+    {
+      "instrument_name": "BTC-14AUG26-55000-P",
+      "strike": 55000.0,
+      "expiry_dt": "2026-08-14 08:00:00+00:00",
+      "tte_at_entry": 18.99,
+      "delta_at_entry": -0.0633,
+      "gamma_at_entry": 2e-05,
+      "vega_at_entry": 18.25837,
+      "theta_at_entry": -22.64466,
+      "iv_at_entry": 46.45,
+      "entry_price": 0.0029,
+      "entry_mark_price": 0.0031,
+      "entry_price_usd": 186.49,
+      "entry_spot": 64306.59,
+      "contracts": 0.2,
+      "entry_ts": "2026-07-26 08:08:44 UTC",
+      "hedge_qty": -0.01266,
+      "hedge_entry_spot": 64306.59,
+      "hedge_avg_entry": 64313.08,
+      "hedge_rebalances": 1,
+      "hedge_history": [
+        {
+          "ts": "2026-07-26 08:08:44 UTC",
+          "side": "SELL",
+          "qty": -0.01266,
+          "spot": 64306.59,
+          "perp_price": 64313.08,
+          "qty_before": 0.0,
+          "qty_after": -0.01266,
+          "vwap_before": 0.0,
+          "vwap_after": 64313.08,
+          "drift": 0.0633,
+          "note": "hedge initial (perp mark $64313.08 vs index $64306.59)"
+        }
+      ],
+      "entry_score": 0.464,
+      "entry_sizing_btc": 0.2,
+      "exit_price": 0.0,
+      "exit_spot": 62863.45,
+      "exit_ts": "2026-08-14 08:58:37 UTC",
+      "tte_at_exit": 0.0,
+      "exit_reason": "expiration",
+      "pnl_btc": 0.00058,
+      "pnl_usd": 36.46
     }
   ],
   "last_updated": "2026-06-29 00:01:17 UTC",
