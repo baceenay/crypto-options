@@ -113,6 +113,44 @@
       ],
       "entry_score": 0.469,
       "entry_sizing_btc": 0.3
+    },
+    {
+      "instrument_name": "BTC-4SEP26-55000-P",
+      "strike": 55000.0,
+      "expiry_dt": "2026-09-04 08:00:00+00:00",
+      "tte_at_entry": 19.78,
+      "delta_at_entry": -0.0665,
+      "gamma_at_entry": 2e-05,
+      "vega_at_entry": 18.9613,
+      "theta_at_entry": -19.48838,
+      "iv_at_entry": 40.1,
+      "entry_price": 0.0027,
+      "entry_mark_price": 0.0029,
+      "entry_price_usd": 170.02,
+      "entry_spot": 62970.07,
+      "contracts": 0.3,
+      "entry_ts": "2026-08-15 13:23:16 UTC",
+      "hedge_qty": -0.01995,
+      "hedge_entry_spot": 62970.07,
+      "hedge_avg_entry": 62977.51,
+      "hedge_rebalances": 1,
+      "hedge_history": [
+        {
+          "ts": "2026-08-15 13:23:16 UTC",
+          "side": "SELL",
+          "qty": -0.01995,
+          "spot": 62970.07,
+          "perp_price": 62977.51,
+          "qty_before": 0.0,
+          "qty_after": -0.01995,
+          "vwap_before": 0.0,
+          "vwap_after": 62977.51,
+          "drift": 0.0665,
+          "note": "hedge initial (perp mark $62977.51 vs index $62970.07)"
+        }
+      ],
+      "entry_score": 0.523,
+      "entry_sizing_btc": 0.3
     }
   ],
   "hedge": {
