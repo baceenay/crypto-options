@@ -1135,14 +1135,16 @@ def run_once(currency: str = CURRENCY, verbose: bool = True):
     for pg in all_greeks:
         display_greeks(pg)
 
-    # Greeks cumulés pour le hedge
+    # Greeks cumulés pour le hedge. Book vide (toutes les positions expirées et
+    # aucun candidat) : delta nul → le rebalance unifié ci-dessous remettra le
+    # hedge à plat, ce qui est le comportement voulu.
     combined_greeks = {
         "pos_delta": sum(g["pos_delta"] for g in all_greeks),
         "pos_gamma": sum(g["pos_gamma"] for g in all_greeks),
         "pos_vega":  sum(g["pos_vega"]  for g in all_greeks),
         "pos_theta": sum(g["pos_theta"] for g in all_greeks),
-        "mark_iv_pct": max(g.get("mark_iv_pct") or 50 for g in all_greeks),
-        "tte_days":  min(g["tte_days"] for g in all_greeks),  # position la plus proche de l'expiry
+        "mark_iv_pct": max((g.get("mark_iv_pct") or 50 for g in all_greeks), default=50),
+        "tte_days":  min((g["tte_days"] for g in all_greeks), default=0.0),
         "spot":      spot,
     }
     pos_greeks = combined_greeks
@@ -1242,8 +1244,12 @@ def run_once(currency: str = CURRENCY, verbose: bool = True):
     # ── PnL ───────────────────────────────────────────────────────────────────
     print_section("PnL MARK-TO-MARKET")
     pos = state.get("open") or (open_positions[0] if open_positions else {})
-    pnl = compute_pnl(pos, spot)
-    display_pnl(pnl)
+    pnl = None
+    if pos.get("instrument_name"):
+        pnl = compute_pnl(pos, spot)
+        display_pnl(pnl)
+    else:
+        print("  Book vide — aucune position a marquer.")
 
     # ── Alertes risque ────────────────────────────────────────────────────────
     print_section("ALERTES RISQUE")
@@ -1262,7 +1268,7 @@ def run_once(currency: str = CURRENCY, verbose: bool = True):
     if abs(pos_greeks["pos_vega"]) > 0.05 * CONTRACTS:
         alerts.append(f"  [!] Vega eleve: {pos_greeks['pos_vega']:.4f}  "
                       f"-> exposition IV significative")
-    if abs(pnl["pnl_pct"]) > 50:
+    if pnl and abs(pnl["pnl_pct"]) > 50:
         alerts.append(f"  [!!] PnL > 50% en mouvement: {pnl['pnl_pct']:+.1f}% "
                       f"-> verifier stop-loss")
     # Hedge drift avec seuil dynamique
@@ -1395,8 +1401,8 @@ def run_once(currency: str = CURRENCY, verbose: bool = True):
     hedge_save = state.get("hedge", {})
     snap = {**combined_greeks, **hedge,
             "hedge_qty": hedge_save.get("qty", 0),
-            "pnl_usd": pnl["pnl_usd"],
-            "total_pnl_usd": pnl["total_pnl_usd"],
+            "pnl_usd": (pnl or {}).get("pnl_usd", 0.0),
+            "total_pnl_usd": (pnl or {}).get("total_pnl_usd", 0.0),
             "timestamp": now_dt()}
     pd.DataFrame([snap]).to_csv(
         OUTPUT_DIR / f"{currency}_{tag}_hedge_snapshot.csv", index=False)

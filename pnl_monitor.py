@@ -681,7 +681,12 @@ def compute_option_pnl(position: dict, spot: float) -> dict:
     entry_s    = position["entry_spot"]
     contracts  = position["contracts"]
 
-    ticker     = fetch_option_ticker(instr)
+    try:
+        ticker = fetch_option_ticker(instr)
+    except Exception:
+        # Instrument retiré de l'API (expiré) ou API indisponible → fallback :
+        # une expirée OTM vaut 0, la clôture propre est faite par greeks_hedge juste après
+        ticker = {"mark_price": 0.0, "best_bid_price": 0.0, "best_ask_price": 0.0}
     curr_mark  = ticker.get("mark_price", entry_p)
     curr_bid   = ticker.get("best_bid_price") or curr_mark
     curr_ask   = ticker.get("best_ask_price") or curr_mark
@@ -746,6 +751,21 @@ def compute_portfolio_snapshot(state: dict) -> dict:
     """Calcule le snapshot portfolio : option PnL par position + hedge PnL partagé."""
     positions = state.get("positions", [])
     hedge     = state.get("hedge", {})
+
+    # Écarter les positions déjà expirées : Deribit retire l'instrument de l'API
+    # (ticker → 400) et c'est greeks_hedge.expire_positions qui les clôture proprement
+    # dans l'étape suivante du workflow.
+    _now = pd.Timestamp(now_utc())
+    _active = []
+    for p in positions:
+        try:
+            if pd.to_datetime(p["expiry_dt"], utc=True) > _now:
+                _active.append(p)
+            else:
+                print(f"  [skip] {p['instrument_name']} expirée — clôture par greeks_hedge au prochain step")
+        except Exception:
+            _active.append(p)
+    positions = _active
 
     if not positions:
         return {}
@@ -894,6 +914,10 @@ def run_once(plot: bool = False, report: bool = False):
 
     print(f"Calcul snapshot portfolio ({len(positions)} position(s))...")
     snap = compute_portfolio_snapshot(state)
+    if not snap:
+        print("Toutes les positions sont expirées — pas de snapshot ce run "
+              "(clôture par greeks_hedge au step suivant).")
+        return
 
     # Affichage console (position principale)
     primary_pos = max(positions, key=lambda p: pd.to_datetime(
